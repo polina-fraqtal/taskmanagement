@@ -1,30 +1,28 @@
-'use client'
-import { Task } from '@/payload-types';
-import { useRouter, useParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { getPayload } from 'payload';
+import config from '@payload-config';      
 
-export default function TaskPage() {
-    const router = useRouter();
-    const { slug } = useParams();
-    const [task, setTask] = useState<Task>();
+export default async function TaskPage({ params }: { params: { slug: string } }) {
+   
+    const payload = await getPayload({ config });
 
-    useEffect(() => {
-        console.log(slug);
-    }, [slug]);
+    const fetchTask = async (slug: string) => {
+        try {
+            const response = await payload.find({
+                collection: 'tasks',
+                where: {
+                    id: {
+                        equals: slug,
+                    }
+                },
 
-    useEffect(() => {
-        const fetchTask = async () => {
-            try {
-                const response = await fetch(`http://localhost:3000/api/tasks/${slug}`);
-                const data = await response.json();
-                setTask(data);
-            } catch (error) {
-                console.error('Error fetching task:', error);
-            }
-        };
-        fetchTask();
-        console.log(task);
-    }, [slug]);
+            })
+            return response.docs[0];
+        } catch (error) {
+            console.error('Error fetching a task:', error);
+        }
+    }
+
+    const task = await fetchTask((await params).slug);
 
     return (
         <div style={styles.container}>

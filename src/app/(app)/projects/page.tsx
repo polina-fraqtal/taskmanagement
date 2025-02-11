@@ -1,23 +1,22 @@
-'use client'
-import { useEffect, useState } from 'react';
-import { Project } from '../../../payload-types'
 import { Card } from 'antd';
-export default function Projects() {
-    const [projects, setProjects] = useState<Project[]>([]);
+import { getPayload } from 'payload';
+import config from '@payload-config';
 
-    useEffect(() => {
-        const fetchProjects = async () => {
-            try {
-                const response = await fetch('http://localhost:3000/api/projects');
-                const data = await response.json();
-                setProjects(data.docs);
-            } catch (error) {
-                console.error('Error fetching projects:', error);
-            }
-        };
+const payload = await getPayload({ config });
 
-        fetchProjects();
-    }, []);
+export default async function Projects() {
+
+    const fetchProjects = async () => {
+        try {
+            const response = await payload.find({ collection: 'projects'});
+            return response.docs;
+        } catch (error) {
+            console.error('Error fetching projects:', error);
+        }
+    };
+
+    const projects = await fetchProjects() || [];
+
 
     return (
         <div style={{ padding: '20px' }}>

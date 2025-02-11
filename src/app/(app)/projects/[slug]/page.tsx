@@ -1,29 +1,29 @@
-'use client'
-import { Project } from '@/payload-types';
-import { useRouter, useParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import config from '@payload-config';
+import { getPayload } from 'payload';
 
-export default function ProjectPage() {
-    const { slug } = useParams();
-    const [project, setProject] = useState<Project>();
+export default async function ProjectPage({params}: {params: {slug: string}}) {
+    
 
-    useEffect(() => {
-        console.log(slug);
-    }, [slug]);
+    const payload = await getPayload({ config });
 
-    useEffect(() => {
-        const fetchProject = async () => {
-            try {
-                const response = await fetch(`http://localhost:3000/api/projects/${slug}`);
-                const data = await response.json();
-                setProject(data);
-            } catch (error) {
-                console.error('Error fetching project:', error);
-            }
-        };
-        fetchProject();
-        console.log(project);
-    }, [slug]);
+    const fetchProject = async (slug: string) => {
+        try {
+            const response = await payload.find({
+                collection: 'projects',
+                where: {
+                    id: {
+                        equals: slug,
+                    }
+                },
+            });
+            return response.docs[0];
+        } catch (error) {
+            console.error('Error fetching a project:', error);
+        }
+    }   
+
+    const project = await fetchProject((await params).slug);
+
 
     return (
         <div style={styles.container}>

@@ -1,24 +1,23 @@
-'use client'
-import { useEffect, useState } from 'react';
-import { Announcement } from './../../../../../task-management/src/payload-types';
 import { Card } from 'antd';
+import { getPayload } from 'payload'
+import config from '@payload-config'
 
-export default function Announcements() {
-    const [announcements, setAnnouncements] = useState<Announcement[]>([]);
+const payload = await getPayload({ config });
 
-    useEffect(() => {
-        const fetchAnnouncements = async () => {
-            try {
-                const response = await fetch('http://localhost:3000/api/announcements');
-                const data = await response.json();
-                setAnnouncements(data.docs);
-            } catch (error) {
-                console.error('Error fetching announcements:', error);
-            }
-        };
+export default async function Announcements() {
+    
 
-        fetchAnnouncements();
-    }, []);
+    const fetchAnnouncements = async () => {
+        try {
+            const response = await payload.find({ collection: 'announcements', sort: '-createdAt' });
+            return response.docs
+        } catch (error) {
+            console.error('Error fetching announcements:', error);
+        }
+    };
+
+    const announcements = await fetchAnnouncements() || [];
+
 
     return (
         <div className='px-20 py-6 min-h-screen'>
@@ -28,13 +27,10 @@ export default function Announcements() {
             announcements.map((announcement) => (
             <Card key={announcement.id} className='w-full'>
                 <div className='flex justify-between items-start'>
-                <Card.Meta
-                    title={announcement.title}
-                    description={announcement.description}
-                />
-                <span className='text-gray-500'>
-                    {new Date(announcement.createdAt).toLocaleDateString()}
-                </span>
+                    <div>{announcement.title}</div>
+                    <span className='text-gray-500'>
+                        {new Date(announcement.createdAt).toLocaleDateString()}
+                    </span>
                 </div>
             </Card>
             ))
