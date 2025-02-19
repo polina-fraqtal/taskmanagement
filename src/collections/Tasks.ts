@@ -1,6 +1,7 @@
 import { lexicalHTML, lexicalEditor, HeadingFeature, FixedToolbarFeature, InlineToolbarFeature, HorizontalRuleFeature, HTMLConverterFeature } from '@payloadcms/richtext-lexical';
-import { CollectionConfig } from 'payload';
-import payload from 'payload';
+import { CollectionConfig, getPayload } from 'payload';
+import config from '@payload-config';
+import { User } from '@/payload-types';
 
 export const Tasks: CollectionConfig = {
     slug: 'tasks',
@@ -31,23 +32,34 @@ export const Tasks: CollectionConfig = {
             name: 'assignees',
             type: 'relationship',
             relationTo: 'users',
-            filterOptions: async (siblingData: any) => {
-                const projectId = siblingData['project'];
-        
-                if (!projectId) return false;
-        
-                try {
-                    const project = await payload.findByID({
-                        collection: 'projects',
-                        id: projectId,
-                    });
-        
-                    if (!project || !project.assignees) return false;
-        
-                    return true;
-                } catch (error) {
-                    return false;
+            filterOptions: async ({data}) => {
+                const payload = await getPayload({ config });
+
+                if (!data.project) {
+                    return { id: { in: [] } };
                 }
+
+                const projectId = data.project;
+    
+                const project = await payload.find({
+                    collection: 'projects',
+                    where: {
+                        id : {
+                            equals: projectId
+                        },
+                }
+                });
+
+                const projectAssignees: User[] = (project.docs[0]?.assignees ?? []) as User[];
+
+                console.log('projectAssignees', projectAssignees.length);
+
+                if (projectAssignees.length == 0)  {return { id: { in: [] } }};
+
+    
+                return {
+                        id: { in: projectAssignees.filter(user => user && user.id).map(user => user.id) }
+                };
             },
             hasMany: true,
         },

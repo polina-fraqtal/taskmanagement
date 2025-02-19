@@ -1,6 +1,5 @@
-# blank
-
-blank
+# start aplication
+pnpm run dev
 
 ## Attributes
 
