@@ -52,7 +52,6 @@ export const Tasks: CollectionConfig = {
 
                 const projectAssignees: User[] = (project.docs[0]?.assignees ?? []) as User[];
 
-                console.log('projectAssignees', projectAssignees.length);
 
                 if (projectAssignees.length == 0)  {return { id: { in: [] } }};
 

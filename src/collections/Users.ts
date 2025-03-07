@@ -1,9 +1,10 @@
-import type { CollectionConfig } from 'payload';
+import { CollectionConfig, getPayload } from 'payload';
+import config from '@payload-config';
 
 export const Users: CollectionConfig = {
   slug: 'users',
   admin: {
-    useAsTitle: 'email',
+    useAsTitle: 'name',
   },
   auth: true,
   fields: [
@@ -12,6 +13,20 @@ export const Users: CollectionConfig = {
       type: 'number',
       required: true,
       unique: true,
+      access: {
+        update: () => false,
+        create: () => false,
+      },  
+      defaultValue: async() => {
+        const payload = await getPayload({ config });
+        const users = await payload.find({
+          collection: 'users',
+          limit: 1,
+          sort: ['-id'],
+        });
+
+        return users.docs[0]?.id + 1 || 1;
+      }
     },
     {
       name: 'name',
