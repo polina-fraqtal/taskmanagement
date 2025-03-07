@@ -123,7 +123,12 @@ export interface Project {
  */
 export interface Media {
   id: number;
+  title: string;
   alt: string;
+  author?: (number | null) | User;
+  uploadedAt: string;
+  category?: ('image' | 'video' | 'audio') | null;
+  description?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -304,7 +309,12 @@ export interface UsersSelect<T extends boolean = true> {
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
+  title?: T;
   alt?: T;
+  author?: T;
+  uploadedAt?: T;
+  category?: T;
+  description?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
