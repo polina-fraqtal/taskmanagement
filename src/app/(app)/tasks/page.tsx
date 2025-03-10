@@ -18,19 +18,25 @@ const tasks = await fetchTask() || [];
 export default function Tasks() {
 
     return (
-      <div style={{ padding: '20px' }}>
-      <h1 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '20px' }}>Tasks</h1>
-      <ul style={{ listStyleType: 'none', padding: 0 }}>
-          {tasks.map((task) => (
-              <li key={task.id} style={{ marginBottom: '20px' }}>
-                  <a href={'tasks/' + task.id.toString()} style={{ textDecoration: 'none' }}>
-                      <Card title={task.title} style={{ border: '1px solid #e8e8e8', borderRadius: '4px', padding: '16px' }}>
-                          <p>{task.description}</p>
-                      </Card>
-                  </a>
-              </li>
-          ))}
-      </ul>
-  </div>
+        <div className='tasks-container'>
+            <h1 className='tasks-title'>Tasks</h1>
+            <div className='tasks-list'>
+                {tasks.length > 0 ? (
+                    tasks.map((task) => (
+                        <Card key={task.id} className='task-card'>
+                            <div className='task-header'>
+                                <div>{task.title}</div>
+                                <span className='task-date'>
+                                    {new Date(task.createdAt).toLocaleDateString()}
+                                </span>
+                            </div>
+                            <p>{task.description}</p>
+                        </Card>
+                    ))
+                ) : (
+                    <p className='no-tasks'>No tasks available.</p>
+                )}
+            </div>
+        </div>
     );
 }

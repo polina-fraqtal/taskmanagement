@@ -14,6 +14,7 @@ import { Tasks } from './collections/Tasks'
 import { ProjectComments } from './collections/ProjectComments'
 import { TaskComments } from './collections/TaskComments'
 import { Announcements } from './collections/Annoucements'
+import { Nav } from './globals/Nav'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -25,6 +26,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
+  globals: [Nav],
   collections: [Users, Media, Projects, Tasks, Announcements, ProjectComments, TaskComments],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

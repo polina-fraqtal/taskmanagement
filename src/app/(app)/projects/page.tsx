@@ -19,19 +19,25 @@ export default async function Projects() {
 
 
     return (
-        <div style={{ padding: '20px' }}>
-            <h1 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '20px' }}>Projects</h1>
-            <ul style={{ listStyleType: 'none', padding: 0 }}>
-                {projects.map((project) => (
-                    <li key={project.id} style={{ marginBottom: '20px' }}>
-                        <a href={'projects/' + project.id.toString()} style={{ textDecoration: 'none' }}>
-                            <Card title={project.title} style={{ border: '1px solid #e8e8e8', borderRadius: '4px', padding: '16px' }}>
-                                <p>{project.description}</p>
-                            </Card>
-                        </a>
-                    </li>
-                ))}
-            </ul>
+        <div className='projects-container'>
+            <h1 className='projects-title'>Projects</h1>
+            <div className='projects-list'>
+                {projects.length > 0 ? (
+                    projects.map((project) => (
+                        <Card key={project.id} className='project-card'>
+                            <div className='project-header'>
+                                <div>{project.title}</div>
+                                <span className='project-date'>
+                                    {new Date(project.createdAt).toLocaleDateString()}
+                                </span>
+                            </div>
+                            <p>{project.description}</p>
+                        </Card>
+                    ))
+                ) : (
+                    <p className='no-projects'>No projects available.</p>
+                )}
+            </div>
         </div>
     );
 }

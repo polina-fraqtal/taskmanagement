@@ -20,23 +20,23 @@ export default async function Announcements() {
 
 
     return (
-        <div className='px-20 py-6 min-h-screen'>
-            <h1 className='text-3xl font-bold mb-6'>Announcements</h1>
-            <div className='space-y-4'>
-            {announcements.length > 0 ? (
-            announcements.map((announcement) => (
-            <Card key={announcement.id} className='w-full'>
-                <div className='flex justify-between items-start'>
-                    <div>{announcement.title}</div>
-                    <span className='text-gray-500'>
-                        {new Date(announcement.createdAt).toLocaleDateString()}
-                    </span>
-                </div>
-            </Card>
-            ))
-            ) : (
-            <p className='text-center text-gray-500'>No announcements available.</p>
-            )}
+        <div className='announcements-container'>
+            <h1 className='announcements-title'>Announcements</h1>
+            <div className='announcements-list'>
+                {announcements.length > 0 ? (
+                    announcements.map((announcement) => (
+                        <Card key={announcement.id} className='announcement-card'>
+                            <div className='announcement-header'>
+                                <div>{announcement.title}</div>
+                                <span className='announcement-date'>
+                                    {new Date(announcement.createdAt).toLocaleDateString()}
+                                </span>
+                            </div>
+                        </Card>
+                    ))
+                ) : (
+                    <p className='no-announcements'>No announcements available.</p>
+                )}
             </div>
         </div>
     );

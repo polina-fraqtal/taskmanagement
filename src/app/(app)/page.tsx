@@ -1,7 +1,8 @@
-import Image from "next/image";
+import '../globals.css'
 import { Geist, Geist_Mono } from "next/font/google";
 import { Button, Flex, Space } from "antd";
 import Title from "antd/es/typography/Title";
+import  Navigation from "../components/Navigation.component";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
