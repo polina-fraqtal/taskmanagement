@@ -1,17 +1,18 @@
 import { getPayload } from 'payload';
 import config from '@payload-config';
 import Card from 'antd/es/card/Card';
+import { format } from 'date-fns';
 
 const payload = await getPayload({ config });
 
 const fetchTask = async () => {
     try {
-        const response = await payload.find({ collection: 'tasks'});
+        const response = await payload.find({ collection: 'tasks' });
         return response.docs;
     } catch (error) {
         console.error('Error fetching tasks:', error);
     }
-}
+};
 
 const tasks = await fetchTask() || [];
 
@@ -27,7 +28,7 @@ export default function Tasks() {
                             <div className='task-header'>
                                 <div>{task.title}</div>
                                 <span className='task-date'>
-                                    {new Date(task.createdAt).toLocaleDateString()}
+                                    {format(new Date(task.createdAt), 'MM/dd/yyyy')}
                                 </span>
                             </div>
                             <p>{task.description}</p>

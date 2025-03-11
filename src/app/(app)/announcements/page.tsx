@@ -1,6 +1,7 @@
 import { Card } from 'antd';
-import { getPayload } from 'payload'
-import config from '@payload-config'
+import { getPayload } from 'payload';
+import config from '@payload-config';
+import { format } from 'date-fns';
 
 const payload = await getPayload({ config });
 
@@ -29,7 +30,7 @@ export default async function Announcements() {
                             <div className='announcement-header'>
                                 <div>{announcement.title}</div>
                                 <span className='announcement-date'>
-                                    {new Date(announcement.createdAt).toLocaleDateString()}
+                                    {format(new Date(announcement.createdAt), 'MM/dd/yyyy')}
                                 </span>
                             </div>
                         </Card>

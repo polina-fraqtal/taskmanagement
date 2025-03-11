@@ -70,12 +70,16 @@ body {
 .announcement-date,
 .task-date,
 .project-date {
-    color: #6b7280; /* gray-500 */
+    color: #6b7280;
 }
 
 .no-announcements,
 .no-tasks,
 .no-projects {
     text-align: center;
-    color: #6b7280; /* gray-500 */
+    color: #6b7280;
+}
+
+.link-button {
+    width: 300px;
 }

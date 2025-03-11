@@ -27,20 +27,20 @@ export default function Home() {
                     <Title level={1} style={{ fontWeight: 'bold' }}>
                         Welcome to Task Management
                     </Title>
-                    <Space direction="vertical" size="large" align="center">
-                        <Button href="/projects" style={{ width: '300px' }}>
+                    <Space direction="vertical" size="large" align="center" className='link-button'>
+                        <Button href="/projects" className='link-button'>
                             View available projects
                         </Button>
-                        <Button href="/tasks" style={{ width: '300px' }}>
+                        <Button href="/tasks" className='link-button'>
                             View available tasks
                         </Button>
-                        <Button href="/announcements" style={{ width: '300px' }}>
+                        <Button href="/announcements" className='link-button' >
                             Read the announcements
                         </Button>
                         <Button
                             href="/admin"
                             target="_blank"
-                            style={{ width: '300px' }}
+                            className='link-button'
                         >
                             Login as an admin
                         </Button>

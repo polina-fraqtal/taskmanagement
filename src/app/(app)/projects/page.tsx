@@ -1,6 +1,7 @@
 import { Card } from 'antd';
 import { getPayload } from 'payload';
 import config from '@payload-config';
+import { format } from 'date-fns';
 
 const payload = await getPayload({ config });
 
@@ -28,7 +29,7 @@ export default async function Projects() {
                             <div className='project-header'>
                                 <div>{project.title}</div>
                                 <span className='project-date'>
-                                    {new Date(project.createdAt).toLocaleDateString()}
+                                    {format(new Date(project.createdAt), 'MM/dd/yyyy')}
                                 </span>
                             </div>
                             <p>{project.description}</p>
