@@ -19,24 +19,25 @@ const tasks = await fetchTask() || [];
 export default function Tasks() {
 
     return (
-        <div className='tasks-container'>
-            <h1 className='tasks-title'>Tasks</h1>
-            <div className='tasks-list'>
-                {tasks.length > 0 ? (
-                    tasks.map((task) => (
-                        <Card key={task.id} className='task-card'>
-                            <div className='task-header'>
-                                <div>{task.title}</div>
-                                <span className='task-date'>
-                                    {format(new Date(task.createdAt), 'MM/dd/yyyy')}
-                                </span>
-                            </div>
-                            <p>{task.description}</p>
-                        </Card>
-                    ))
-                ) : (
-                    <p className='no-tasks'>No tasks available.</p>
-                )}
+        <div className='p-10 min-h-screen'>
+            <h1 className='text-3xl font-bold mb-6'>Tasks</h1>
+            <div className='mt-4'>
+            {tasks.length > 0 ? (
+                tasks.map((task) => (
+                <Card key={task.id} className='w-full'>
+                    <a href={`tasks/${task.id}`}> <div className='flex justify-between items-start text-black'>
+                    <div>{task.title}</div>
+                    <span className='text-gray-500'>
+                        {format(new Date(task.createdAt), 'MM/dd/yyyy')}
+                    </span>
+                    </div>
+                    <p className='text-black'>{task.description}</p></a>
+                   
+                </Card>
+                ))
+            ) : (
+                <p className='text-center text-gray-500'>No tasks available.</p>
+            )}
             </div>
         </div>
     );

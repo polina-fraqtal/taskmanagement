@@ -21,22 +21,22 @@ export default async function Announcements() {
 
 
     return (
-        <div className='announcements-container'>
-            <h1 className='announcements-title'>Announcements</h1>
-            <div className='announcements-list'>
+        <div className='p-10 min-h-screen'>
+            <h1 className='text-3xl font-bold mb-6'>Announcements</h1>
+            <div className='mt-4'>
                 {announcements.length > 0 ? (
                     announcements.map((announcement) => (
-                        <Card key={announcement.id} className='announcement-card'>
-                            <div className='announcement-header'>
+                        <Card key={announcement.id} className='w-full'>
+                            <div className='flex justify-between items-start'>
                                 <div>{announcement.title}</div>
-                                <span className='announcement-date'>
+                                <span className='text-gray-500'>
                                     {format(new Date(announcement.createdAt), 'MM/dd/yyyy')}
                                 </span>
                             </div>
                         </Card>
                     ))
                 ) : (
-                    <p className='no-announcements'>No announcements available.</p>
+                    <p className='text-center text-gray-500'>No announcements available.</p>
                 )}
             </div>
         </div>

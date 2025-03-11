@@ -26,13 +26,13 @@ export default async function ProjectPage({params}: {params: {slug: string}}) {
 
 
     return (
-        <div style={styles.container}>
+        <div className="flex justify-center items-center h-screen bg-gray-200">
             {project ? (
-                <div style={styles.card}>
-                    <h1 style={styles.title}>Project: {project.title}</h1>
-                    <p style={styles.info}>Description: {project.description}</p>
-                    <p style={styles.info}>Due Date: {project.dueDate ? new Date(project.dueDate).toLocaleDateString() : 'N/A'}</p>
-                    <p style={styles.info}>Status: {project.status}</p>
+                <div className="bg-white p-5 rounded-lg shadow-lg max-w-xl w-full text-center">
+                    <h1 className="text-2xl mb-5">Project: {project.title}</h1>
+                    <p className="text-lg mb-2">Description: {project.description}</p>
+                    <p className="text-lg mb-2">Due Date: {project.dueDate ? new Date(project.dueDate).toLocaleDateString() : 'N/A'}</p>
+                    <p className="text-lg mb-2">Status: {project.status}</p>
                 </div>
             ) : (
                 <p>Loading...</p>
@@ -40,30 +40,3 @@ export default async function ProjectPage({params}: {params: {slug: string}}) {
         </div>
     );
 }
-
-const styles = {
-    container: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-        backgroundColor: '#f0f0f0',
-    },
-    card: {
-        backgroundColor: '#fff',
-        padding: '20px',
-        borderRadius: '8px',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-        maxWidth: '600px',
-        width: '100%',
-        textAlign: 'center' as 'center',
-    },
-    title: {
-        fontSize: '2em',
-        marginBottom: '20px',
-    },
-    info: {
-        fontSize: '1.2em',
-        marginBottom: '10px',
-    },
-};

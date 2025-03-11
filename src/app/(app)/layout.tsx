@@ -11,7 +11,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html className='dark mx-auto'>
       <body> 
         <Navigation />
-        {children}
+        <div className='pt-0'>{children}</div>
       </body>
     </html>
   )

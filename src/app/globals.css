@@ -1,4 +1,6 @@
-.navigation {
+@import "tailwindcss";
+
+/* .navigation {
     background-color: black;
     color: white;
     padding: 20px;
@@ -82,4 +84,4 @@ body {
 
 .link-button {
     width: 300px;
-}
+}*/

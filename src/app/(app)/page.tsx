@@ -2,7 +2,6 @@ import '../globals.css'
 import { Geist, Geist_Mono } from "next/font/google";
 import { Button, Flex, Space } from "antd";
 import Title from "antd/es/typography/Title";
-import  Navigation from "../components/Navigation.component";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -22,25 +21,25 @@ export default function Home() {
                     vertical
                     justify="center"
                     align="center"
-                    style={{ height: '100vh' }}
+                    className='h-screen'
                 >
-                    <Title level={1} style={{ fontWeight: 'bold' }}>
+                    <Title level={1} className='bold'>
                         Welcome to Task Management
                     </Title>
-                    <Space direction="vertical" size="large" align="center" className='link-button'>
-                        <Button href="/projects" className='link-button'>
+                    <Space direction="vertical" size="large" align="center" className='w-72'>
+                        <Button href="/projects" className='w-72'>
                             View available projects
                         </Button>
-                        <Button href="/tasks" className='link-button'>
+                        <Button href="/tasks" className='w-72'>
                             View available tasks
                         </Button>
-                        <Button href="/announcements" className='link-button' >
+                        <Button href="/announcements" className='w-72'>
                             Read the announcements
                         </Button>
                         <Button
                             href="/admin"
                             target="_blank"
-                            className='link-button'
+                            className='w-72'
                         >
                             Login as an admin
                         </Button>

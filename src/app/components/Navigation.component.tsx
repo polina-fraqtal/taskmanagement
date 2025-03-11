@@ -3,23 +3,23 @@ import config from '@payload-config';
 import '../globals.css';
 
 export default async function Navigation() {
-const payload = await getPayload({ config });
-const fetchNav = async() => {
-    try {
-        const response = await payload.findGlobal({ slug: 'nav' });
-        console.log(response);
-        return response.links;
-    } catch (error) {
-        console.error('Error fetching nav:', error);
-    }
-}
-const navLinks = await fetchNav() || [];
+    const payload = await getPayload({ config });
+    const fetchNav = async () => {
+        try {
+            const response = await payload.findGlobal({ slug: 'nav' });
+            return response.links;
+        } catch (error) {
+            console.error('Error fetching nav:', error);
+        }
+    };
+    const navLinks = await fetchNav() || [];
+
     return (
-        <nav className="navigation">
-            <ul>
+        <nav className="flex justify-start items-center bg-black text-white text-xl p-10 h-15 text-center sticky top-0 z-100 shadow-md">
+            <ul className="flex gap-10 w-full">
                 {navLinks.map((link: any, index: number) => (
-                    <li key={index} style={{ marginLeft: index === navLinks.length - 1 ? 'auto' : 'initial' }}>
-                        <a href={link.url}>{link.text}</a>
+                    <li key={index} className={`list-none ${index === navLinks.length - 1 ? 'ml-auto' : ''}`}>
+                        <a href={link.url} className="no-underline text-white">{link.text}</a>
                     </li>
                 ))}
             </ul>
