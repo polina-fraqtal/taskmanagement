@@ -109,22 +109,34 @@ export interface Config {
   };
 }
 export interface UserAuthOperations {
-  forgotPassword: {
-    email: string;
-    password: string;
-  };
-  login: {
-    email: string;
-    password: string;
-  };
+  forgotPassword:
+    | {
+        email: string;
+      }
+    | {
+        username: string;
+      };
+  login:
+    | {
+        email: string;
+        password: string;
+      }
+    | {
+        password: string;
+        username: string;
+      };
   registerFirstUser: {
-    email: string;
     password: string;
+    username: string;
+    email?: string;
   };
-  unlock: {
-    email: string;
-    password: string;
-  };
+  unlock:
+    | {
+        email: string;
+      }
+    | {
+        username: string;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -132,12 +144,12 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: number;
-  name: string;
   'assigned projects'?: (number | Project)[] | null;
   role?: ('admin' | 'user') | null;
   updatedAt: string;
   createdAt: string;
   email: string;
+  username: string;
   resetPasswordToken?: string | null;
   resetPasswordExpiration?: string | null;
   salt?: string | null;
@@ -350,12 +362,12 @@ export interface PayloadMigration {
  */
 export interface UsersSelect<T extends boolean = true> {
   id?: T;
-  name?: T;
   'assigned projects'?: T;
   role?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
+  username?: T;
   resetPasswordToken?: T;
   resetPasswordExpiration?: T;
   salt?: T;

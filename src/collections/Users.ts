@@ -4,9 +4,15 @@ import config from '@payload-config';
 export const Users: CollectionConfig = {
   slug: 'users',
   admin: {
-    useAsTitle: 'name',
+    useAsTitle: 'username',
   },
-  auth: true,
+  auth: {
+    loginWithUsername : {
+      allowEmailLogin: true,
+      requireEmail: false,
+      requireUsername: true
+    }
+  },
   fields: [
     {
       name: 'id',
@@ -29,7 +35,7 @@ export const Users: CollectionConfig = {
       }
     },
     {
-      name: 'name',
+      name: 'username',
       type: 'text',
       required: true,
     },

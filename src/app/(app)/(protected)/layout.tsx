@@ -1,4 +1,5 @@
 import React from 'react'
+import Navigation from '../../components/Navigation.component'
 
 export const metadata = {
   description: 'Task Management Application',
@@ -7,10 +8,9 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html className='dark mx-auto'>
-      <body> 
+    <>
+        <Navigation />
         <div className='pt-0'>{children}</div>
-      </body>
-    </html>
+    </>
   )
 }
